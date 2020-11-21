@@ -1,0 +1,29 @@
+.news-app-toolbar {
+  position: fixed;
+  z-index: 1;
+  box-shadow: 0 .1rem 0.5rem rgba(0,0,0,.15);
+}
+
+.news-app-menu {
+  margin-right: 10px;
+}
+
+.news-app-icon {
+  padding: 0 14px;
+}
+
+.news-app-spacer {
+  flex: 1 1 auto;
+}
+
+:host > div {
+  position: absolute;
+  top: 56px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  @media only screen and (min-width: 600px) {
+    top: 64px;
+  }
+}

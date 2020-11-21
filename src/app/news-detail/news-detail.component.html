@@ -1,0 +1,54 @@
+<div class="content">
+    <div *ngIf="(article$ | async) as article" class="news-detail">
+        <div class="image">
+            <img *ngIf="article.urlToImage else noImage" [src]="article.urlToImage" [alt]="article.title">
+        </div>
+        <ng-template #noImage>
+            <img src="/assets/images/placeholder.jpg" alt="Placeholder">
+        </ng-template>
+        <div class="article-body">
+            <div class="meta">
+                <span>{{ article.source.name }}</span>
+                <span *ngIf="article.author">{{ article.author }}</span>
+                <time>{{ article.publishedAt | date: 'mediumDate' }}</time>
+                <span class="comments-count">
+                    <ng-template [ngTemplateOutlet]="CommentsCount"></ng-template>
+                </span>
+            </div>
+            <div class="article-content">
+                <h1>{{ article.title }}</h1>
+                <p>{{ article.description }}</p>
+                <p>{{ article.content }}</p>
+                <div class="redirect-wrapper">
+                    <a mat-flat-button color="primary" (click)="goToArticle(article.url)">Read more</a>
+                </div>
+            </div>
+        </div>
+        <div class="comments">
+            <h3 class="comments-count">
+                <ng-template [ngTemplateOutlet]="CommentsCount"></ng-template>
+            </h3>
+            <div *ngFor="let comment of comments" class="comment">
+                <div class="image">
+                    <img [src]="comment.avatar">
+                </div>
+                <div class="comment-content">
+                    <div class="meta">
+                        <span>{{ comment.name }}</span>
+                        <time>{{ comment.date | date: 'mediumDate' }}</time>
+                    </div>
+                    <p>{{ comment.comment }}</p>
+                </div>
+            </div>
+        </div>
+        <!-- Artile man image -->
+        
+        <!-- Artile title, description, metadata -->
+        <!-- Read more button -->
+        <!-- Comments section -->
+    </div>
+</div>
+
+<ng-template #CommentsCount>
+    {comments.length, plural, =0 {{{comments.length}} Comments} =1 {1 Comment} other {{{comments.length}} Comments}}
+</ng-template>

@@ -1,0 +1,35 @@
+<div class="content">
+    <!-- Search mat input with debounce and mat progress bar for loading -->
+    <mat-form-field class="search-input" [class.loading]="loading$ | async">
+        <input matInput type="text" placeholder="Search" [formControl]="searchField">
+    </mat-form-field>
+    <ng-container *ngIf="articles$ | async as articles">
+        <div *ngIf="articles.length > 0 else noNews" class="news">
+            <!-- List of fetched articles as snippets per the provided designs -->
+            <div *ngFor="let article of articles" class="article">
+                <a routerLink="/article" [state]="article">
+                    <div class="image">
+                        <img *ngIf="article.urlToImage else noImage" [src]="article.urlToImage" [alt]="article.title">
+                    </div>
+                    <ng-template #noImage>
+                        <img src="/assets/images/placeholder.jpg" alt="Placeholder">
+                    </ng-template>
+                    <div class="article-content">
+                        <div class="meta">
+                            <span class="source">{{ article.source.name }}</span>
+                            <time>{{ article.publishedAt | date: 'mediumDate' }}</time>
+                        </div>
+                        <h2 class="title">{{ article.title }}</h2>
+                        <p class="description">{{ article.description }}</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <!-- No results indication -->
+        <ng-template #noNews>
+            <div class="no-news">
+                No articles found for "{{ searchValue$ | async }}"
+            </div>
+        </ng-template>
+    </ng-container>
+</div>

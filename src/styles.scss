@@ -1,0 +1,340 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+body {
+  font-family: "Montserrat", Arial, sans-serif;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 1.8;
+  color: rgba(0, 0, 0, 0.7);
+  overflow-x: hidden;
+  background-color: #FAFAFA;
+}
+
+$primary-color: #f74062;
+$title-color: #212121;
+$small-devices-breakpoint: 600px;
+$medium-devices-breakpoint: 800px;
+$large-devices-breakpoint: 900px;
+$gap: 20px;
+$page-max-width: 1140px;
+
+@mixin article-title {
+  font-size: 26px;
+  margin: 15px 0;
+  font-weight: 200;
+  text-transform: uppercase;
+}
+
+@mixin article-meta {
+  font-size: 14px;
+  
+  .source {
+    padding-right: 10px;
+  }
+}
+
+.content {
+  max-width: $page-max-width;
+  margin: 0 auto;
+  background: white;
+
+  .search-input {
+    padding: 20px 30px 0 30px;
+    width: 100%;
+
+    &.mat-focused .mat-form-field-label {
+      color: $primary-color;
+    }
+
+    .mat-form-field-underline .mat-form-field-ripple {
+      background-color: $primary-color;
+    }
+
+    &.loading {
+      .mat-form-field-underline {
+        background-color: $primary-color;
+      }
+
+      .mat-form-field-underline .mat-form-field-ripple {
+        animation-name: search-loading;
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+      }
+    }
+
+    @media only screen and (min-width: $medium-devices-breakpoint) {
+      width: calc(100% / 3 - #{$gap} / 2);
+      padding: 20px 0 0 30px;
+    }
+  }
+
+  .news {
+
+    .article a {
+      color: $title-color;
+  
+      .image {
+        overflow: hidden;
+        
+        img {
+          object-fit: cover;
+          width: 100%;
+          height: 60vw;
+          transition: transform .2s;
+        }
+      }
+  
+      .article-content {
+        padding: 30px;
+  
+        .meta {
+          @include article-meta();
+          text-transform: uppercase;
+          color: #787878;
+        }
+  
+        .title {
+          @include article-title;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+  
+        .description {
+          font-size: 15px;
+        }
+  
+      }
+
+      &:hover {
+        text-decoration: none;
+        color: $title-color;
+
+        .image img {
+          transform: scale(1.1);
+        }
+      }
+    }
+
+    @media only screen and (min-width: $small-devices-breakpoint) {
+      .article .article-content {
+        position: relative;
+        top: -20px;
+        margin-right: 20px;
+        background: white;
+      }
+    }
+
+    @media only screen and (min-width: $medium-devices-breakpoint) {
+      flex-wrap: wrap;
+      padding-left: 0;
+      display: flex;
+      justify-content: space-between;
+  
+      .article {
+        max-width: calc(100% / 3 - #{$gap});
+        flex-grow: 1;
+
+        a {
+          .image img {
+            height: 200px;
+          }
+
+          .article-content {
+            position: relative;
+            top: -20px;
+            background-color: white;
+            margin-right: 20px;
+  
+            .meta {
+              font-size: 11px;
+            }
+            .description {
+              overflow: hidden;
+              height: 100px;
+            }
+          }
+        }
+      }
+
+      &::after {
+        content: "";
+        display: block;
+        flex-grow: 1;
+        width: calc(100% / 3 - #{$gap});
+        max-width: calc(100% / 3 - #{$gap});
+      }
+    }
+  
+    @media only screen and (min-width: $large-devices-breakpoint) {
+      padding: 0 30px;
+    }
+  }
+
+  .no-news {
+    font-weight: 300;
+    font-size: 26px;
+    text-align: center;
+    padding-bottom: 100%;
+  }
+
+  .news-detail {
+    background: white;
+
+    .image img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+    }
+    
+    .article-body {
+      .meta {
+        @include article-meta();
+        display: flex;
+        flex-wrap: wrap;
+        padding: 30px 12px 0 12px;
+  
+        span, time {
+          white-space: nowrap;
+          padding-right: 10px;
+        }
+  
+        .comments-count {
+          color: $primary-color;
+        }
+      }
+
+      .article-content {
+        padding: 0 12px 15px 12px;
+  
+        h1 {
+          @include article-title;
+          transition: 0.3s;
+          color: $title-color;
+          cursor: pointer;
+          margin: 25px 0;
+    
+          &:hover {
+            color: $primary-color;
+          }
+        }
+  
+        p {
+          color: #787878;
+        }
+  
+        .redirect-wrapper {
+          text-align: center;
+          padding-top: 30px;
+  
+          .mat-flat-button.mat-primary {
+            background-color: $primary-color;
+            border-radius: 50px;
+    
+            &:hover {
+              text-decoration: none;
+            }
+          }
+        }
+    
+      }
+    }
+
+
+    .comments {
+      padding-bottom: 20px;
+
+      .comments-count {
+        font-weight: normal;
+        padding: 15px;
+      }
+
+      .comment {
+        margin: 0 10px 30px 10px;
+        flex-wrap: wrap;
+        display: flex;
+        --image-size: 80px;
+        border-bottom: #eeeeee solid 1px;
+
+        .image img {
+          width: var(--image-size);
+          height: var(--image-size);
+          border-radius: var(--image-size);
+        }
+
+        .comment-content {
+          width: calc(100% - var(--image-size));
+          padding: 5px 20px;
+
+          .meta {
+            display: flex;
+            justify-content: space-between;
+
+            span {
+              font-weight: 400;
+            }
+
+            time {
+              font-size: 14px;
+            }
+          }
+        }
+      }
+    }
+
+    @media only screen and (min-width: $medium-devices-breakpoint) {
+      .image img {
+        height: 500px;
+      }
+
+      .article-body {
+        --meta-width: 235px;
+
+        display: flex;
+        flex-wrap: wrap;
+        
+        > * {
+          // width: 50%;;
+          flex: 0 0 auto;
+        }
+
+        .meta {
+          display: block;
+          padding: 40px 30px;
+          width: var(--meta-width);
+
+          > * {
+            display: block;
+            text-align: right;
+            padding: 5px 0;
+          }
+        }
+
+        .article-content {
+          width: calc(100% - var(--meta-width));
+          position: relative;
+          top: -30px;
+          padding: 0 40px;
+          background: white;
+
+          h1 {
+            margin-top: 40px;
+          }
+        }
+      }
+
+
+    }  
+  }
+  
+}
+
+
+@keyframes search-loading {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
